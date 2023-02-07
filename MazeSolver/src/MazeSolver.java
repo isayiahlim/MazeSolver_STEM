@@ -1,5 +1,9 @@
 /**
- * Solves mazes. Please refer to the specification for instructions on how to solve mazes.
+ * Isayiah Lim
+ * 2/7/2023
+ * Data Structures Period 1
+ * Mrs. Kankleborg
+ * Solves mazes using Breadth-First Search.
  */
 public class MazeSolver
 {

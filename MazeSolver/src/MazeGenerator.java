@@ -1,5 +1,9 @@
 /**
- * Creates new mazes. Please refer to the spec for instructions on how to generate mazes.
+ * Isayiah Lim
+ * 2/7/2023
+ * Data Structures Period 1
+ * Mrs. Kankleborg
+ * Creates new mazes using Depth-First Search
  */
 public class MazeGenerator
 {

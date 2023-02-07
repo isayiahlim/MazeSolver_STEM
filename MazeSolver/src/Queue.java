@@ -1,65 +1,84 @@
 /**
+ * Isayiah Lim
+ * 2/7/2023
+ * Data Structures Period 1
+ * Mrs. Kankleborg
  * A first-in-first-out (FIFO) queue of generic items.
  *
  * @param <T> the type of item to store in the queue
  */
-public class Queue<T>
-{
-    /**
-     * Initializes an empty queue.
-     */
-    public Queue()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+public class Queue<T> {
+    private static class Node<T> {
+        Node<T> next;
+        T data;
+        public Node()
+        {
+            next = null;
+            data = null;
+        }
+        public Node(T data)
+        {
+        	this.data = data;
+        	next = null;
+        }
     }
-
-    /**
-     * Adds an item to the queue.
-     *
-     * @param newItem the item to add
-     */
-    public void enqueue(T newItem)
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    // ADD YOUR CODE HERE.
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
+    
+    public Queue() {
+        head = null;
+        tail = null;
     }
-
-    /**
-     * Removes and returns the item on the queue that was least recently added.
-     *
-     * @return the item on the queue that was least recently added
-     */
-    public T dequeue()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public void enqueue(T newItem) {
+        if(newItem == null) throw new IllegalArgumentException("");
+    	if(size == 0)
+        {
+            head = new Node<T>(newItem);
+            tail = head;
+        }
+        else if (size == 1)
+        {
+        	tail = new Node<T>(newItem);
+        	head.next = tail;
+        }
+        else
+        {
+            tail.next = new Node<T>(newItem);
+            tail = tail.next;
+        }
+        size ++;
     }
-
-    /**
-     * Returns the item least recently added to the queue.
-     *
-     * @return the item least recently added to the queue
-     */
-    public T peek()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public T dequeue() {
+        if(isEmpty()) throw new IllegalStateException("");
+        T temp = head.data;
+        if(size == 1)
+        {
+            head = null;
+            tail = null;
+        }
+        else
+        {
+            head = head.next;
+        }
+        size--;
+        return temp;
     }
-
-    /**
-     * Returns whether the queue is empty.
-     *
-     * @return whether the queue is empty
-     */
-    public boolean isEmpty()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public T peek() {
+        if(isEmpty()) throw new IllegalStateException("");
+        return head.data;
     }
-
-    /**
-     * Returns the number of items in the queue.
-     *
-     * @return the number of items in the queue
-     */
-    public int size()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public boolean isEmpty() {
+        return (size == 0);
+    }
+    
+    public int size() {
+        return size;
     }
 }

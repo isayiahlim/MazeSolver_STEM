@@ -1,65 +1,63 @@
 /**
+ * Isayiah Lim
+ * 2/7/2023
+ * Data Structures Period 1
+ * Mrs. Kankleborg
  * A last-in-first-out (LIFO) stack of generic items.
  *
  * @param <T> the type of item to store in the stack
  */
-public class Stack<T>
-{
-    /**
-     * Initializes an empty stack.
-     */
-    public Stack()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+public class Stack<T> {
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+        public Node()
+        {
+            data = null;
+            next = null;
+        }
+        public Node(T data)
+        {
+            this.data = data;
+            next = null;
+        }
     }
-
-    /**
-     * Adds an item to the stack.
-     *
-     * @param newItem the item to add
-     */
-    public void push(T newItem)
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    private Node<T> head;
+    private int size;
+    public Stack() {
+        head = new Node<T>();
+        size = 0;
     }
-
-    /**
-     * Removes and returns the item on the stack that was most recently added.
-     *
-     * @return the item on the stack that was most recently added
-     */
-    public T pop()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public void push(T newItem) {
+        if(newItem == null)
+            throw new IllegalArgumentException("Invalid item given.");
+        Node<T> temp = new Node<T>(newItem);
+        temp.next = head;
+        head = temp;
+        size++;
     }
-
-    /**
-     * Returns the item most recently added to the stack.
-     *
-     * @return the item most recently added to the stack
-     */
-    public T peek()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public T pop() {
+        if(size == 0)
+            throw new IllegalStateException("Stack is empty.");
+        T value = head.data;
+        head = head.next;
+        size--;
+        return value;
     }
-
-    /**
-     * Returns whether the stack is empty.
-     *
-     * @return whether the stack is empty
-     */
-    public boolean isEmpty()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public T peek() {
+        if(size == 0)
+            throw new IllegalStateException("Stack is empty.");
+        return head.data;
     }
-
-    /**
-     * Returns the number of items in the stack.
-     *
-     * @return the number of items in the stack
-     */
-    public int size()
-    {
-        throw new UnsupportedOperationException("Implement me!");
+    
+    public boolean isEmpty() {
+        return !(size != 0);
+    }
+    
+    public int size() {
+        return size;
     }
 }
