@@ -30,8 +30,37 @@ public class MazeGenerator
         	int unvisited = 0;
         	if(x > 0)
         	{
-        		if()
+        		if(maze.isOpen(x, y, Direction.LEFT))
+        		{
+        			directions[unvisited] = Direction.LEFT;
+        			unvisited ++;
+        		}
         	}
+        	if(x < size)
+        	{
+        		if(maze.isOpen(x, y, Direction.RIGHT))
+        		{
+        			directions[unvisited] = Direction.RIGHT;
+        			unvisited ++;
+        		}
+        	}
+        	if(y > 0)
+        	{
+        		if(maze.isOpen(x, y, Direction.DOWN))
+        		{
+        			directions[unvisited] = Direction.DOWN;
+        			unvisited ++;
+        		}
+        	}
+        	if(y < size)
+        	{
+        		if(maze.isOpen(x, y, Direction.UP))
+        		{
+        			directions[unvisited] = Direction.UP;
+        			unvisited ++;
+        		}
+        	}
+        	
         }
         return maze;
     }
