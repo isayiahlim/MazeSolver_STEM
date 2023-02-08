@@ -15,7 +15,25 @@ public class MazeGenerator
      */
     public Maze generate(int size)
     {
-        throw new UnsupportedOperationException("Implement me!");
+        Maze maze = new Maze(size);
+        Stack<Cell> mazeStack = new Stack<Cell>();
+        mazeStack.push(new Cell(0,0));
+        while(mazeStack != null)
+        {
+        	
+        	Cell current = mazeStack.pop();
+        	int x = current.getX();
+        	int y = current.getY();
+        	maze.visit(x, y);
+        	//possible directions to go & int to put directions into it
+        	Direction[] directions = new Direction[4];
+        	int unvisited = 0;
+        	if(x > 0)
+        	{
+        		if()
+        	}
+        }
+        return maze;
     }
 
     /**
