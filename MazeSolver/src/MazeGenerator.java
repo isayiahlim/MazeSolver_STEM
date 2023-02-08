@@ -18,6 +18,7 @@ public class MazeGenerator
         Maze maze = new Maze(size);
         Stack<Cell> mazeStack = new Stack<Cell>();
         mazeStack.push(new Cell(0,0));
+        int unvisited = 0;
         while(mazeStack != null)
         {
         	
@@ -25,9 +26,8 @@ public class MazeGenerator
         	int x = current.getX();
         	int y = current.getY();
         	maze.visit(x, y);
-        	//possible directions to go & int to put directions into it
+        	//possible directions to go
         	Direction[] directions = new Direction[4];
-        	int unvisited = 0;
         	if(x > 0)
         	{
         		if(maze.isOpen(x, y, Direction.LEFT))
@@ -60,11 +60,36 @@ public class MazeGenerator
         			unvisited ++;
         		}
         	}
-        	
+        	Direction temp = directions[(int)(Math.random()*unvisited)];
+        	maze.removeWall(x, y, temp);
+        	mazeStack.push(current);
+        	if(temp == Direction.LEFT)
+        		x --;
+        	if(temp == Direction.RIGHT)
+        		x ++;
+        	if(temp == Direction.DOWN)
+        		y--;
+        	if(temp == Direction.UP)
+        		y++;
+        	mazeStack.push(new Cell(x, y));
         }
+        //random start stop points
+        int startX;
+        int startY;
+        int endX;
+        int endY;
+        do {
+            startX = (int)(Math.random() * size);
+            startY = (int)(Math.random() * size);
+            endX = (int)(Math.random() * size);
+            endY = (int)(Math.random() * size);
+        } while ((startX == endX) && (startY == endY));
+
+        maze.setStart(startX, startY);
+        maze.setEnd(endX, endY);
+
         return maze;
     }
-
     /**
      * Creates and draws a sample maze. Try generating mazes with different sizes!
      *
