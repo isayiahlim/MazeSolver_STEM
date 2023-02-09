@@ -19,7 +19,7 @@ public class MazeGenerator
         Stack<Cell> mazeStack = new Stack<Cell>();
         mazeStack.push(new Cell(0,0));
         int unvisited = 0;
-        while(mazeStack != null)
+        while(!mazeStack.isEmpty())
         {
         	
         	Cell current = mazeStack.pop();
@@ -30,15 +30,15 @@ public class MazeGenerator
         	Direction[] directions = new Direction[4];
         	if(x > 0)
         	{
-        		if(maze.isOpen(x, y, Direction.LEFT))
+        		if(maze.isVisited(x-1, y))
         		{
         			directions[unvisited] = Direction.LEFT;
         			unvisited ++;
         		}
         	}
-        	if(x < size)
+        	if(x < size-1)
         	{
-        		if(maze.isOpen(x, y, Direction.RIGHT))
+        		if(maze.isVisited(x+1, y))
         		{
         			directions[unvisited] = Direction.RIGHT;
         			unvisited ++;
@@ -46,15 +46,15 @@ public class MazeGenerator
         	}
         	if(y > 0)
         	{
-        		if(maze.isOpen(x, y, Direction.DOWN))
+        		if(maze.isVisited(x, y-1))
         		{
         			directions[unvisited] = Direction.DOWN;
         			unvisited ++;
         		}
         	}
-        	if(y < size)
+        	if(y < size-1)
         	{
-        		if(maze.isOpen(x, y, Direction.UP))
+        		if(maze.isVisited(x, y+1))
         		{
         			directions[unvisited] = Direction.UP;
         			unvisited ++;
