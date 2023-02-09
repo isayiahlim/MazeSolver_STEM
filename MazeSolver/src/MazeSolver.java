@@ -17,7 +17,56 @@ public class MazeSolver
      */
     public Path solve(Maze maze)
     {
-        throw new UnsupportedOperationException("Implement me!");
+        Path path = new Path();
+        //queue used to iterate through cells
+        Queue<Cell> pathStack = new Queue<Cell>();
+        pathStack.enqueue(maze.getStart());
+        //for every cell in the maze
+        while(!pathStack.isEmpty())
+        {
+        	//pops and visits the cell
+        	Cell current = pathStack.dequeue();
+        	int x = current.getX();
+        	int y = current.getY();
+        	maze.visit(x, y);
+        	
+        	if(current.equals(maze.getEnd()))
+        	{
+        		throw new UnsupportedOperationException("implement this later");
+        	}
+        	
+        	//checks if a direction is open and unvisited for all cardinal directions
+            if(x > 0)
+        	{
+        		if(!maze.isVisited(x-1, y) && maze.isOpen(x, y, Direction.LEFT))
+        		{
+        			pathStack.enqueue(new Cell(x-1, y));
+        		}
+        	}
+        	if(x < maze.size()-1)
+        	{
+        		if(!maze.isVisited(x+1, y) && maze.isOpen(x, y, Direction.RIGHT))
+        		{
+        			pathStack.enqueue(new Cell(x+1, y));
+        		}
+        	}
+        	if(y > 0)
+        	{
+        		if(!maze.isVisited(x, y-1) && maze.isOpen(x, y, Direction.DOWN))
+        		{
+        			pathStack.enqueue(new Cell(x, y-1));
+        		}
+        	}
+        	if(y < maze.size()-1)
+        	{
+        		if(!maze.isVisited(x, y+1) && maze.isOpen(x, y, Direction.UP))
+        		{
+        			pathStack.enqueue(new Cell(x, y+1));
+        		}
+        	}
+        	
+        }
+        return path;
     }
 
     /**
