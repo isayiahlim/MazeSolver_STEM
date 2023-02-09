@@ -60,25 +60,30 @@ public class MazeGenerator
         			unvisited ++;
         		}
         	}
-        	Direction temp = directions[(int)(Math.random()*unvisited)];
-        	maze.removeWall(x, y, temp);
-        	mazeStack.push(current);
-        	if(temp == Direction.LEFT)
-        		x --;
-        	if(temp == Direction.RIGHT)
-        		x ++;
-        	if(temp == Direction.DOWN)
-        		y--;
-        	if(temp == Direction.UP)
-        		y++;
-        	mazeStack.push(new Cell(x, y));
+        	if(unvisited > 0)
+        	{
+	        	Direction temp = directions[(int)(Math.random()*unvisited)];
+	        	maze.removeWall(x, y, temp);
+	        	mazeStack.push(current);
+	        	if(temp == Direction.LEFT)
+	        		x --;
+	        	if(temp == Direction.RIGHT)
+	        		x ++;
+	        	if(temp == Direction.DOWN)
+	        		y--;
+	        	if(temp == Direction.UP)
+	        		y++;
+	        	mazeStack.push(new Cell(x, y));
+        	}
         }
+        
         //random start stop points
-        int startX;
-        int startY;
-        int endX;
-        int endY;
-        do {
+        int startX = (int)(Math.random() * size);
+        int startY = (int)(Math.random() * size);
+        int endX = (int)(Math.random() * size);
+        int endY = (int)(Math.random() * size);
+        do 
+        {
             startX = (int)(Math.random() * size);
             startY = (int)(Math.random() * size);
             endX = (int)(Math.random() * size);
@@ -87,7 +92,6 @@ public class MazeGenerator
 
         maze.setStart(startX, startY);
         maze.setEnd(endX, endY);
-
         return maze;
     }
     /**
