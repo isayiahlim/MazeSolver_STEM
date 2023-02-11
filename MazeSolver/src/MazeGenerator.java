@@ -94,6 +94,7 @@ public class MazeGenerator
         int startY = (int)(Math.random() * size);
         int endX = (int)(Math.random() * size);
         int endY = (int)(Math.random() * size);
+        //ensures different start/end
         while ((startX == endX) && (startY == endY))
         {
             startX = (int)(Math.random() * size);
