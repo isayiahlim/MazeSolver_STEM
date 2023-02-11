@@ -15,24 +15,53 @@ public class MazeSolver
      * @param maze the maze to solve
      * @return a solution for the maze or {@link Path#NO_PATH} if there is no solution
      */
-    public Path solve(Maze maze)
+	//new object storing the path taken to get to every cell
+    public class StoredCell
     {
-        Path path = new Path();
+    	 private Cell current;
+         private Path stored;
+         
+         //stores the current cell and generates the path to get there
+         public StoredCell(Cell current, Path path)
+         {
+             this.current = current;
+             stored = new Path();
+             for(Cell cell : path)
+             {
+                 stored.addLast(cell);
+             }
+             stored.addLast(current);
+         }
+
+         public Cell getCell() 
+         { 
+        	 return current; 
+         }
+         public Path getPath() 
+         { 
+        	 return stored; 
+         }
+    }
+	
+	public Path solve(Maze maze)
+    {
+        Path path = Path.NO_PATH;
         //queue used to iterate through cells
-        Queue<Cell> pathStack = new Queue<Cell>();
-        pathStack.enqueue(maze.getStart());
+        Queue<StoredCell> pathStack = new Queue<StoredCell>();
+        pathStack.enqueue(new StoredCell(maze.getStart(), path));
+        
         //for every cell in the maze
         while(!pathStack.isEmpty())
         {
         	//pops and visits the cell
-        	Cell current = pathStack.dequeue();
-        	int x = current.getX();
-        	int y = current.getY();
+        	StoredCell current = pathStack.dequeue();
+        	int x = current.getCell().getX();
+        	int y = current.getCell().getY();
         	maze.visit(x, y);
         	
-        	if(current.equals(maze.getEnd()))
+        	if(current.getCell().equals(maze.getEnd()))
         	{
-        		throw new UnsupportedOperationException("implement this later");
+        		return current.getPath();
         	}
         	
         	//checks if a direction is open and unvisited for all cardinal directions
@@ -40,33 +69,37 @@ public class MazeSolver
         	{
         		if(!maze.isVisited(x-1, y) && maze.isOpen(x, y, Direction.LEFT))
         		{
-        			pathStack.enqueue(new Cell(x-1, y));
+        			StoredCell tempC = new StoredCell(new Cell(x-1, y), Path.NO_PATH);
+        			pathStack.enqueue(tempC);
         		}
         	}
         	if(x < maze.size()-1)
         	{
         		if(!maze.isVisited(x+1, y) && maze.isOpen(x, y, Direction.RIGHT))
         		{
-        			pathStack.enqueue(new Cell(x+1, y));
+        			StoredCell tempC = new StoredCell(new Cell(x+1, y), Path.NO_PATH);
+        			pathStack.enqueue(tempC);
         		}
         	}
         	if(y > 0)
         	{
-        		if(!maze.isVisited(x, y-1) && maze.isOpen(x, y, Direction.DOWN))
+        		if(!maze.isVisited(x, y+1) && maze.isOpen(x, y, Direction.DOWN))
         		{
-        			pathStack.enqueue(new Cell(x, y-1));
+        			StoredCell tempC = new StoredCell(new Cell(x, y-1), Path.NO_PATH);
+        			pathStack.enqueue(tempC);
         		}
         	}
         	if(y < maze.size()-1)
         	{
         		if(!maze.isVisited(x, y+1) && maze.isOpen(x, y, Direction.UP))
         		{
-        			pathStack.enqueue(new Cell(x, y+1));
+        			StoredCell tempC = new StoredCell(new Cell(x, y+1), Path.NO_PATH);
+        			pathStack.enqueue(tempC);
         		}
         	}
         	
         }
-        return path;
+        return Path.NO_PATH;
     }
 
     /**
